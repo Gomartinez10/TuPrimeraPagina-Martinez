@@ -1,9 +1,21 @@
 from django import forms
-from gimnasio_vidafit.models import Asociado
+from gimnasio_vidafit.models import Asociado , Profesional
 
 class AsociadoForm(forms.ModelForm):
     class Meta:
         model = Asociado
+        fields = ["nombre", "apellido","email", "fecha_de_nacimiento"]
+        widgets = {
+            "nombre": forms.TextInput(attrs={"class": "form-control"}),
+            "apellido": forms.TextInput(attrs={"class": "form-control"}),
+            "email": forms.EmailInput(attrs={"class": "form-control"}),
+            "fecha_de_nacimiento": forms.DateInput(attrs={"type": "date", "class": "form-control"})
+        }
+        
+        
+class ProfesionalForm(forms.ModelForm):
+    class Meta:
+        model = Profesional
         fields = ["nombre", "apellido","email", "fecha_de_nacimiento"]
         widgets = {
             "nombre": forms.TextInput(attrs={"class": "form-control"}),
