@@ -2,13 +2,13 @@
 
 
 {% block titulo %} Registro - {% endblock %}
+{% block barra %} <a class="navbar-brand" href="#">Completa tu registro:</a> {% endblock %}
 
 {% block contenido %} 
+    <form method ="POST">
+        {% csrf_token %} 
+    {{ form.as_p }}
 
-<form   method ="POST">
-    {%crsf_token%}
-    {{form.as_p}}
+<div><button>Guardar</button></div>
 
-</form>
-
-{%endblock%}
+{% endblock %}
