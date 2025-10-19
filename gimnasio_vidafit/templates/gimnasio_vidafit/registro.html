@@ -2,13 +2,44 @@
 
 
 {% block titulo %} Registro - {% endblock %}
-{% block barra %} <a class="navbar-brand" href="#">Completa tu registro:</a> {% endblock %}
 
-{% block contenido %} 
-    <form method ="POST">
-        {% csrf_token %} 
-    {{ form.as_p }}
 
-<div><button>Guardar</button></div>
-
-{% endblock %}
+{% block contenido %}
+    <div class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card shadow-lg border-0 rounded-4">
+                    <div class="card-body p-4">
+                        <h2 class="card-title text-center mb-4">Regístrate en VidaFit</h2>
+                        <p class="text-center text-muted mb-4">Completa los datos para unirte a nuestra comunidad</p>
+                        <form method="POST" class="needs-validation" novalidate>
+                            {% csrf_token %}
+                            <!-- Renderizar campos del formulario -->
+                            {% for field in form %}
+                                <div class="mb-3">
+                                    <label for="{{ field.id_for_label }}" class="form-label fw-semibold">{{ field.label }}</label>
+                                    {{ field }}
+                                    {% if field.errors %}
+                                        <div class="invalid-feedback">
+                                            {% for error in field.errors %}
+                                                {{ error }}
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                    {% if field.help_text %}
+                                        <small class="form-text text-muted">{{ field.help_text }}</small>
+                                    {% endif %}
+                                </div>
+                            {% endfor %}
+                            <!-- Botón de enviar -->
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary btn-lg">Guardar</button>
+                                <a href="{% url 'index' %}" class="btn btn-primary btn-lg">Volver</a>
+                                {% endblock %}
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
