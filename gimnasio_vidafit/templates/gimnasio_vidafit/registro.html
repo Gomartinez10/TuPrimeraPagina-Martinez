@@ -4,3 +4,11 @@
 {% block titulo %} Registro - {% endblock %}
 
 {% block contenido %} 
+
+<form   method ="POST">
+    {%crsf_token%}
+    {{form.as_p}}
+
+</form>
+
+{%endblock%}
