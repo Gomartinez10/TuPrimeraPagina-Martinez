@@ -14,8 +14,9 @@ class Profesional(models.Model):
     nombre = models.CharField(max_length=100)
     apellido = models.CharField(max_length=100)
     email = models.EmailField(unique=True, blank=True, null=True)
+    especialidad = models.CharField(max_length=100)
     fecha_de_nacimiento = models.DateField(null=True)
-    
+
     def __str__(self):
         return f"Profesor: {self.nombre} {self.apellido}"
     
