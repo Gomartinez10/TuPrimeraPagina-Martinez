@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from gimnasio_vidafit.forms import *
+from gimnasio_vidafit.models import Profesional
 
 def index(request):
     return render(request, "gimnasio_vidafit/index.html")
@@ -39,3 +40,12 @@ def agendar_clase(request):
         form = ClasesForm()
         
     return render(request,"gimnasio_vidafit/agendar_clases.html", {"form":form})
+
+
+def buscar_profesor(request):
+    query = request.GET.get("q","")
+    if len(query) > 0:
+        profesor = Profesional.objects.filter(nombre__icontains=query).order_by("-apellido")
+    else:
+        profesor = Profesional.objects.all().order_by("-apellido")
+    return render(request,"gimnasio_vidafit/buscar_profesor.html",{"asociado": profesor, "query": query})
