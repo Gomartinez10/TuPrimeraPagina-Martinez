@@ -6,4 +6,4 @@ urlpatterns = [
     path("registro/", registro, name="registro"),
     path("registro_profesional/", registro_profesional, name="registro_profesional")
     
-    ]
+]

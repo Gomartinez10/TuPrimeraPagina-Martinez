@@ -1,5 +1,5 @@
 from django import forms
-from gimnasio_vidafit.models import Asociado , Profesional
+from gimnasio_vidafit.models import Asociado , Profesional , Clases
 
 class AsociadoForm(forms.ModelForm):
     class Meta:
@@ -24,3 +24,15 @@ class ProfesionalForm(forms.ModelForm):
             "especialidad": forms.TextInput(attrs={"class": "form-control"}),
             "fecha_de_nacimiento": forms.DateInput(attrs={"type": "date", "class": "form-control"})
         }
+        
+        
+        
+class ClasesForm(forms.ModelForm):
+    class Meta:
+        model = Clases
+        fields = ["nombre","fecha"]
+        widgets = {
+            "nombre": forms.TextInput(attrs={"class": "form-control"}),
+            "fecha": forms.DateInput(attrs={"type": "date", "class": "form-control"})
+        }
+                                                    

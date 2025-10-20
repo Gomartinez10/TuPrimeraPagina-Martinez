@@ -18,11 +18,24 @@ def registro(request):
 
 def registro_profesional(request):
     if request.method == "POST":
-        form = AsociadoForm(request.POST)
+        form = ProfesionalForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect("index")
     else:
-        form = AsociadoForm()
+        form = ProfesionalForm()
             
     return render(request,"gimnasio_vidafit/registro_profesional.html", {"form": form})
+
+
+
+def agendar_clase(request):
+    if request.method == "POST":
+        form = ClasesForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("index")
+    else:
+        form = ClasesForm()
+        
+    return render(request,"gimnasio_vidafit/agendar_clases.html", {"form":form})

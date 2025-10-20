@@ -1,0 +1,11 @@
+{% extends "gimnasio_vidafit/index.html" %}
+
+{% block titulo %} Agendar Clases - {% endblock %}
+
+<form method="POST">
+    {%% csrf_token %% }
+    {{ form.as_p }}
+
+
+
+</form>
