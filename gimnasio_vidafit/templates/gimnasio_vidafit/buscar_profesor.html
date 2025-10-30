@@ -1,43 +1,39 @@
- {% extends "gimnasio_vidafit/index.html" %}
+{% extends "gimnasio_vidafit/index.html" %}
 
 {% block titulo %} Busca tu profe - {% endblock %}
 
-
 {% block contenido %}
 
-  <main class="container py-4 flex-grow-1">
-        <!-- Espaciador para mover el contenido hacia abajo -->
-        <div class="py-5 my-5"></div> <!-- Ajusta py-5 o my-5 para más o menos espacio -->
+<main class="container py-4 flex-grow-1">
+    <!-- Espaciador -->
+    <div class="py-5 my-5"></div>
 
-        <!-- Formulario de búsqueda -->
-        <form method="GET" action="{% url 'buscar_profesor' %}" class="mb-4">
-            <div class="input-group">
-                <input 
-                    type="text" 
-                    name="q" 
-                    value="{{ query }}" 
-                    placeholder="Buscar por nombre..." 
-                    class="form-control" 
-                    aria-label="Buscar profesores"
-                >
-                <button 
-                    type="submit" 
-                    class="btn btn-primary"
-                >
-                    Buscar
-                </button>
-            </div>
-        </form>
+    <!-- Formulario de búsqueda -->
+    <form method="GET" action="{% url 'buscar_profesor' %}" class="mb-4">
+        <div class="input-group">
+            <input 
+                type="text" 
+                name="q" 
+                value="{{ query }}" 
+                placeholder="Buscar por nombre..." 
+                class="form-control" 
+                aria-label="Buscar profesores"
+                autofocus
+            >
+            <button type="submit" class="btn btn-primary">
+                Buscar
+            </button>
+        </div>
+    </form>
 
-        <!-- Lista de profesores -->
-        {% if asociado %}
+    <!-- Lista de profesores -->
+    {% if asociado.exists %}
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
             {% for profesor in asociado %}
             <div class="col">
                 <div class="card h-100 shadow-sm">
                     <div class="card-body">
                         <h5 class="card-title">{{ profesor.nombre }} {{ profesor.apellido }}</h5>
-                        <!-- Agrega más campos si los tienes -->
                         <p class="card-text text-muted">
                             {% if profesor.especialidad %}
                                 Especialidad: {{ profesor.especialidad }}
@@ -45,36 +41,26 @@
                                 Sin especialidad registrada
                             {% endif %}
                         </p>
+                        <div class="d-flex justify-content-around mt-3">
+                            <a href="#" class="btn btn-info btn-sm">Ver</a>
+                            <a href="{% url "editar_profesor" profesor.legajo %}" class="btn btn-warning btn-sm">Editar</a>
+                            <a href="{% url "eliminar_profesor" profesor.legajo %}" class="btn btn-danger btn-sm">Eliminar</a>
+                        </div>
                     </div>
-                </div>
-            </div>
-            {% empty %}
-            <div class="col">
-                <div class="alert alert-info" role="alert">
-                    No se encontraron profesores para la búsqueda "{{ query }}".
                 </div>
             </div>
             {% endfor %}
         </div>
-        {% else %}
+    {% else %}
+        <!-- Solo se muestra si NO hay resultados (pero SÍ hay búsqueda) -->
         <div class="alert alert-info" role="alert">
             {% if query %}
-                No se encontraron profesores para la búsqueda "{{ query }}".
+                No se encontraron profesores para "<strong>{{ query }}</strong>".
             {% else %}
-                Ingresa un nombre para buscar profesores.
+                <!-- Este caso ya no debería pasar porque siempre hay profesores -->
+                No hay profesores registrados.
             {% endif %}
         </div>
-        {% endif %}
-    </main>
-{%endblock%}
-    <!-- Pie de página -->
-    <footer class="bg-dark text-white text-center py-3">
-        <div class="container">
-            <p class="mb-0">&copy; 2025 Buscador de Profesores</p>
-        </div>
-    </footer>
-
-    <!-- Bootstrap 5 JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-</body>
-</html>
+    {% endif %}
+</main>
+{% endblock %}
