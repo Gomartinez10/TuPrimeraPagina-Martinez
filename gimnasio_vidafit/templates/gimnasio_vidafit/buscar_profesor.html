@@ -8,6 +8,12 @@
     <!-- Espaciador -->
     <div class="py-5 my-5"></div>
 
+    <!-- TÍTULO + BOTÓN AÑADIR -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h3 class="mb-0 text-primary fw-bold">Listado de profesores:</h3>
+        <!-- Opcional: descomenta si tienes una vista para crear profesor -->
+    </div>
+
     <!-- Formulario de búsqueda -->
     <form method="GET" action="{% url 'buscar_profesor' %}" class="mb-4">
         <div class="input-group">
@@ -42,9 +48,12 @@
                             {% endif %}
                         </p>
                         <div class="d-flex justify-content-around mt-3">
-                            <a href="#" class="btn btn-info btn-sm">Ver</a>
                             <a href="{% url "editar_profesor" profesor.legajo %}" class="btn btn-warning btn-sm">Editar</a>
-                            <a href="{% url "eliminar_profesor" profesor.legajo %}" class="btn btn-danger btn-sm">Eliminar</a>
+                            <a href="{% url "eliminar_profesor" profesor.legajo %}" 
+                               class="btn btn-danger btn-sm"
+                               onclick="return confirm('¿Eliminar al profesor {{ profesor.nombre }} {{ profesor.apellido }}?')">
+                                Eliminar
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -52,15 +61,14 @@
             {% endfor %}
         </div>
     {% else %}
-        <!-- Solo se muestra si NO hay resultados (pero SÍ hay búsqueda) -->
         <div class="alert alert-info" role="alert">
             {% if query %}
                 No se encontraron profesores para "<strong>{{ query }}</strong>".
             {% else %}
-                <!-- Este caso ya no debería pasar porque siempre hay profesores -->
                 No hay profesores registrados.
             {% endif %}
         </div>
     {% endif %}
 </main>
+
 {% endblock %}

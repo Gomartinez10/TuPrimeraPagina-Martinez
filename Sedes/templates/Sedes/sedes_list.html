@@ -1,0 +1,82 @@
+{% extends "gimnasio_vidafit/index.html" %}
+
+{% block titulo %} Busca tu sede - {% endblock %}
+
+{% block contenido %}
+
+<main class="container py-4 flex-grow-1">
+    <!-- Espaciador -->
+    <div class="py-5 my-5"></div>
+
+    <!-- Título + Botón Añadir Sede -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h3 class="mb-0 text-primary fw-bold">Sedes</h3>
+        <a href="{% url 'sede_create' %}" class="btn btn-success">
+            Añadir Sede
+        </a>
+    </div>
+
+    <!-- Formulario de búsqueda -->
+    <form method="GET" action="{% url 'sede_list' %}" class="mb-4">
+        <div class="input-group">
+            <input 
+                type="text" 
+                name="q" 
+                value="{{ query }}" 
+                placeholder="Buscar por nombre de sede..." 
+                class="form-control" 
+                aria-label="Buscar sedes"
+                autofocus
+            >
+            <button type="submit" class="btn btn-primary">
+                Buscar
+            </button>
+        </div>
+    </form>
+
+    <!-- Lista de sedes -->
+    {% if sedes.exists %}
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+            {% for sede in sedes %}
+            <div class="col">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ sede.nombre }}</h5>
+                        <p class="card-text text-muted">
+                            <strong>Calle:</strong> {{ sede.calle }} {{ sede.altura }}
+                        </p>
+                        <div class="d-flex justify-content-around mt-3">
+                            <!-- Botón Ver → lleva a página de detalle -->
+                            <a href="{% url 'sede_detail' sede.calle %}" class="btn btn-info btn-sm">
+                                Ver
+                            </a>
+
+                            <!-- Editar -->
+                            <a href="{% url 'sede_edit' sede.altura %}" class="btn btn-warning btn-sm">
+                                Editar
+                            </a>
+
+                            <!-- Eliminar con confirmación -->
+                            <a href="{% url 'sede_delete' sede.altura %}" 
+                               class="btn btn-danger btn-sm"
+                               >
+                                Eliminar
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="alert alert-info" role="alert">
+            {% if query %}
+                No se encontraron sedes para "<strong>{{ query }}</strong>".
+            {% else %}
+                No hay sedes registradas. <a href="{% url 'sede_create' %}" class="alert-link">¡Añade la primera!</a>
+            {% endif %}
+        </div>
+    {% endif %}
+</main>
+
+{% endblock %}
