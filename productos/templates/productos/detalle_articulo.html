@@ -1,0 +1,42 @@
+{% extends "gimnasio_vidafit/index.html" %}
+
+{% block titulo %}Detalle: {{ articulo.nombre }}{% endblock %}
+
+{% block contenido %}
+<div class="container my-5 pt-5">
+    <div class="row">
+        <div class="col-lg-8 offset-lg-2">
+            <h1>{{ articulo.nombre }}</h1>
+            
+            {% if articulo.imagen %}
+                <img src="{{ articulo.imagen.url }}" class="img-fluid rounded my-3" alt="Imagen de {{ articulo.nombre }}">
+            {% else %}
+                <div class="text-center p-5 bg-light my-3 border rounded">Sin Imagen Disponible</div>
+            {% endif %}
+
+            <table class="table table-striped">
+                <tbody>
+                    <tr>
+                        <th scope="row">Precio</th>
+                        <td class="text-success fw-bold">${{ articulo.precio }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Descripción</th>
+                        <td>{{ articulo.descripcion|default:"No se proporcionó descripción." }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Código</th>
+                        <td><code>{{ articulo.codigo }}</code></td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="d-grid gap-2 d-md-flex justify-content-md-start mt-4">
+                <a href="{% url 'articulo_editar' pk=articulo.pk %}" class="btn btn-warning me-md-2">Editar Artículo</a>
+                <a href="{% url 'articulo_eliminar' pk=articulo.pk %}" class="btn btn-danger">Eliminar Artículo</a>
+                <a href="{% url 'articulo_lista' %}" class="btn btn-secondary ms-auto">Volver a la lista</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

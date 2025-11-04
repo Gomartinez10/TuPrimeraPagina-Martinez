@@ -1,0 +1,30 @@
+{% extends "gimnasio_vidafit/index.html" %}
+
+{% block titulo %}Eliminar Artículo{% endblock %}
+
+{% block contenido %}
+<div class="container my-5 pt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
+            <div class="card border-danger shadow-lg">
+                <div class="card-header bg-danger text-white">
+                    <h2 class="mb-0">Confirmar Eliminación</h2>
+                </div>
+                <div class="card-body">
+                    <p class="lead">¿Estás **ABSOLUTAMENTE SEGURO** de que quieres eliminar el artículo:</p>
+                    <h3 class="text-danger">"{{ object.nombre }}"?</h3>
+                    <p class="text-muted">Esta acción es irreversible.</p>
+                    
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="d-grid gap-2 mt-4">
+                            <button type="submit" class="btn btn-danger btn-lg">Sí, Eliminar Permanentemente</button>
+                            <a href="{% url 'articulo_detalle' pk=object.pk %}" class="btn btn-secondary btn-lg">Cancelar</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

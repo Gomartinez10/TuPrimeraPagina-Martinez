@@ -20,7 +20,6 @@
             <th>Nombre</th>
             <th>Calle</th>
             <th>Altura</th>
-            <th>Código</th>
             <th>Acciones</th>
         </tr>
     </thead>
@@ -30,7 +29,7 @@
             <td>{{ sede.nombre }}</td>
             <td>{{ sede.calle }}</td>
             <td>{{ sede.altura }}</td>
-            <td><code>{{ sede.codigo }}</code></td>
+            {% comment %} <td><code>{{ sede.codigo }}</code></td> {% endcomment %}
             <td>
                 <a href="{% url 'sede_detail' sede.calle %}" class="btn btn-info btn-sm">Ver</a>
                 <a href="{% url 'sede_edit' sede.codigo %}" class="btn btn-warning btn-sm">Editar</a>

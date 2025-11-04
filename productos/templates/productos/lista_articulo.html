@@ -1,0 +1,38 @@
+{% extends "gimnasio_vidafit/index.html" %}
+
+{% block titulo %}Lista de Artículos{% endblock %}
+
+{% block contenido %}
+<div class="container my-5 pt-5">
+    <h1>Lista de Artículos</h1>
+
+    <a href="{% url 'articulo_crear' %}" class="btn btn-primary mb-4">Crear Nuevo Artículo</a>
+
+    <div class="row">
+        {% for articulo in articulos %}
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    {% if articulo.imagen %}
+                        <img src="{{ articulo.imagen.url }}" class="card-img-top" alt="{{ articulo.nombre }}" style="height: 200px; object-fit: cover;">
+                    {% else %}
+                        <div class="text-center p-5 bg-light" style="height: 200px;">Sin Imagen</div>
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ articulo.nombre }}</h5>
+                        <p class="card-text text-success fw-bold">${{ articulo.precio }}</p>
+                        
+                        <a href="{% url 'articulo_detalle' pk=articulo.pk %}" class="btn btn-sm btn-outline-secondary">Ver Detalle</a>
+                        <a href="{% url 'articulo_editar' pk=articulo.pk %}" class="btn btn-sm btn-warning">Editar</a>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <div class="col-12">
+                <div class="alert alert-info" role="alert">
+                    No hay artículos registrados aún.
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
