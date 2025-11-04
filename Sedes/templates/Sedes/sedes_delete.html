@@ -1,53 +1,19 @@
 {% extends "gimnasio_vidafit/index.html" %}
 
-{% block titulo %} Eliminar {{ sede.nombre }} {% endblock %}
+{% block titulo %}Eliminar Sede{% endblock %}
 
 {% block contenido %}
-<main class="container py-5 flex-grow-1">
-    <!-- Espaciador -->
-    <div class="py-5 my-5"></div>
+<h1 class="mt-5">¿Seguro que quieres eliminar la sede?</h1>
 
-    <div class="row justify-content-center">
-        <div class="col-md-8 col-lg-6">
-            <div class="card shadow-lg border-0 rounded-4">
-                
-                <!-- Encabezado de advertencia -->
-                <div class="card-header bg-danger text-white text-center py-4">
-                    <h1 class="mb-0 display-5 fw-bold">
-                        <i class="bi bi-exclamation-triangle-fill me-2"></i>
-                        ¿Eliminar esta sede?
-                    </h1>
-                </div>
+<div class="alert alert-warning mt-4">
+    <p><strong>Nombre:</strong> {{ sede.nombre }}</p>
+    <p><strong>Calle:</strong> {{ sede.calle }} {{ sede.altura }}</p>
+    <p><strong>Código:</strong> <code>{{ sede.codigo }}</code></p>
+</div>
 
-                <!-- Cuerpo -->
-                <div class="card-body p-5 text-center">
-                    <div class="mb-5">
-                        <h3 class="text-dark fw-bold">{{ sede.nombre }}</h3>
-                        <p class="text-muted fs-5">
-                            <strong>Ubicación:</strong> {{ sede.calle }} {{ sede.altura }}
-                        </p>
-                    </div>
-
-                    <div class="alert alert-warning">
-                        <strong>¡Atención!</strong> Esta acción <strong>no se puede deshacer</strong>.<br>
-                        Se eliminará permanentemente esta sede y no podrás recuperarla.
-                    </div>
-
-                    <!-- Formulario de confirmación -->
-                    <form method="post" class="d-inline">
-                        {% csrf_token %}
-                        <button type="submit" class="btn btn-danger btn-lg px-5">
-                            <i class="bi bi-trash-fill me-2"></i> Sí, eliminar
-                        </button>
-                    </form>
-
-                    <!-- Botón Cancelar -->
-                    <a href="{% url 'sede_list' %}" class="btn btn-outline-secondary btn-lg px-5 ms-3">
-                        Cancelar
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-</main>
+<form method="post" class="mt-4">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Sí, eliminar</button>
+    <a href="{% url 'sede_list' %}" class="btn btn-secondary">Cancelar</a>
+</form>
 {% endblock %}

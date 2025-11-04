@@ -1,48 +1,19 @@
 {% extends "gimnasio_vidafit/index.html" %}
 
-{% block titulo %} {{ sede.nombre }} - Detalle {% endblock %}
+{% block titulo %}Detalle de Sede{% endblock %}
 
 {% block contenido %}
-<main class="container py-5 flex-grow-1">
-    <!-- Espaciador -->
-    <div class="py-5 my-5"></div>
+<h1 class="mt-5">Detalle de la Sede</h1>
 
-    <div class="row justify-content-center">
-        <div class="col-md-8 col-lg-6">
-            <div class="card shadow-lg border-0 rounded-4">
-                
-                <!-- Encabezado -->
-                <div class="card-header bg-primary text-white text-center py-4">
-                    <h1 class="mb-0 display-5 fw-bold">{{ sede.nombre }}</h1>
-                </div>
+<ul class="list-group mt-4">
+    <li class="list-group-item"><strong>Nombre:</strong> {{ sede.nombre }}</li>
+    <li class="list-group-item"><strong>Calle:</strong> {{ sede.calle }}</li>
+    <li class="list-group-item"><strong>Altura:</strong> {{ sede.altura }}</li>
+    <li class="list-group-item"><strong>Código:</strong> <code>{{ sede.codigo }}</code></li>
+</ul>
 
-                <!-- Cuerpo -->
-                <div class="card-body p-5">
-                    <div class="row g-4">
-                        <div class="col-12">
-                            <h5 class="fw-bold text-secondary mb-3">
-                                Ubicación
-                            </h5>
-                            <p class="fs-4 text-dark">
-                                {{ sede.calle }} {{ sede.altura }}
-                            </p>
-                        </div>
-                    </div>
-
-                    <hr class="my-5">
-
-                    <!-- Botones -->
-                    <div class="d-flex flex-column flex-md-row justify-content-between gap-3">
-                        <a href="{% url 'sede_list' %}" class="btn btn-outline-secondary btn-lg px-5">
-                            ← Volver al listado
-                        </a>
-                        <a href="{% url 'sede_edit' sede.altura %}" class="btn btn-warning btn-lg px-5">
-                            Editar Sede
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</main>
+<!-- Enlaces actualizados: usan 'sede.codigo' -->
+<a href="{% url 'sede_edit' sede.codigo %}" class="btn btn-warning mt-3">Editar</a>
+<a href="{% url 'sede_delete' sede.codigo %}" class="btn btn-danger mt-3">Eliminar</a>
+<a href="{% url 'sede_list' %}" class="btn btn-secondary mt-3">Volver al listado</a>
 {% endblock %}

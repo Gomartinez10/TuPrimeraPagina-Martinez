@@ -3,6 +3,7 @@ from Sedes.forms import SedeForm
 from Sedes.models import Sede
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, DeleteView, CreateView, UpdateView
+from django.shortcuts import get_object_or_404
 
 
 class SedeListView(ListView):
@@ -30,16 +31,19 @@ class SedeUpdateView(UpdateView):
     form_class = SedeForm
     template_name = "Sedes/sedes_form.html"
     success_url = reverse_lazy("sede_list")
-    slug_field = "altura"
-    pk_url_kwarg = "altura" 
-    
+
+    def get_object(self, queryset=None):
+        codigo = self.kwargs.get('codigo')
+        return get_object_or_404(Sede, codigo=codigo)
     
 class SedeDeleteView(DeleteView):
     model = Sede
-    template_name = "Sedes/sede_delete.html"
+    template_name = "Sedes/sedes_delete.html"
     success_url = reverse_lazy("sede_list")
-    slug_field = "altura"
-    pk_url_kwarg = "altura" 
+
+    def get_object(self, queryset=None):
+        codigo = self.kwargs.get('codigo')
+        return get_object_or_404(Sede, codigo=codigo)
     
     
 class SedeDetailView(DetailView):
