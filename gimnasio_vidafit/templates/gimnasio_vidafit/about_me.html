@@ -1,0 +1,52 @@
+{% extends "gimnasio_vidafit/index.html" %}
+
+{% load static %}
+
+
+
+{% block titulo %}Sobre Mí - VidaFit{% endblock %}
+
+{% block contenido %}
+<!-- Hero Section -->
+<section class="hero-section text-white text-center" style="padding: 120px 0; position: relative;">
+    <div class="container position-relative" style="z-index: 2;">
+        <h1 class="display-4 fw-bold mb-3">¡Hola! Soy el creador de VidaFit</h1>
+        <p class="lead mb-4">Gracias por visitar mi primer web</p>
+        <a href="#about" class="btn btn-lg px-5 py-3 fw-bold" style="background: #6C757D; border: none; border-radius: 12px;">
+            Conóceme
+        </a>
+    </div>
+    <!-- Overlay oscuro -->
+    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5);"></div>
+</section>
+
+<!-- Sobre Mí -->
+<section id="about" class="py-5" style="background-color: #f8f9fa;">
+    <div class="container">
+        <div class="row align-items-center">
+            <!-- Foto del desarrollador -->
+            <div class="col-md-5 text-center mb-4 mb-md-0">
+                <div class="position-relative d-inline-block">
+                    <img src="{% static 'images/me.jpg' %}" 
+                         alt="Foto del desarrollador" 
+                         class="img-fluid rounded-circle shadow-lg" 
+                         style="width: 280px; height: 280px; object-fit: cover; border: 6px solid white;">
+                    <div class="position-absolute bottom-0 start-50 translate-middle-x bg-primary text-white px-3 py-1 rounded-pill fw-bold" 
+                         style="font-size: 0.9rem; background: #6C757D !important;">
+                        Yo.    
+                    </div>
+                </div>
+            </div>
+
+            <!-- Texto -->
+            <div class="col-md-7">
+                <h2 class="mb-4 fw-bold" style="color: #343a40;">Gonzalo Martinez</h2>
+                <h5 class="text-muted mb-3">Estudiante de programacion</h5>
+                <p class="lead mb-4">
+                    Hola, que tal? soy Gonzalo, tengo 25 años y luego de estar años sin animarme comencé este curso. Es mi primer experiencia con programación, fue un duro trabajo y no tengo dudas que voy a tener que corregir
+                    cosas de esta entrega. Me llevo buenos aprendizajes y un paneo de lo que es programar con python.
+                </p>
+        
+
+               
+{% endblock %}

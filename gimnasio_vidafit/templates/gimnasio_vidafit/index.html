@@ -95,11 +95,25 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'sede_list' %}">Sedes</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url "buscar_profesor"%}">Profesores</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Acerca de mi</a>
+                        {% if user.is_authenticated %}
+            <li class="nav-item"><a class="nav-link" href="{% url 'profile_detail' %}">Perfil</a></li>
+            <li class="nav-item">
+              <form action="{% url 'logout' %}" method="POST" style="display: inline;">
+                {% csrf_token %}
+                <button type="submit" class="nav-item nav-link">Cerrar sesion</button>
+              </form>
+            </li>
+          {% else %}
+            <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Iniciar sesion</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'register' %}">Registrarse</a></li>
+          {% endif %}
+          <li class="nav-item">
+                        <a class="nav-link" href="{% url 'about_me' %}">Acerca de mi</a>
+        </ul>
+      </div>
+    </div>
+  </nav>
                     </li>
                 </ul>
             </div>
@@ -111,7 +125,7 @@
         <div class="container">
             <h1>¡Bienvenido a VidaFit!</h1>
             <p>Transforma tu vida con nuestro enfoque integral hacia el fitness y el bienestar.</p>
-            <a href="{% url 'registro' %}" class="btn btn-primary btn-lg mt-3">Únete Ahora</a>
+            <a href="{% url 'register' %}" class="btn btn-primary btn-lg mt-3">Únete Ahora</a>
         </div>
     </section>
 

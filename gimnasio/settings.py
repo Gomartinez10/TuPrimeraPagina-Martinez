@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'gimnasio_vidafit',
     "Sedes",
     "productos",
+    "accounts",
 ]
 
 MIDDLEWARE = [
@@ -124,10 +125,15 @@ STATIC_URL = 'static/'
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
-
+DEFAULT_AUTO_FIELD =  "django.db.models.BigAutoField"
+AUTH_USER_MODEL = "accounts.Perfil"
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
+
+LOGIN_URL = "login"
+LOGIN_REDIRECT_URL = "profile_detail"
+LOGOUT_REDIRECT_URL = "login"
 
 
 

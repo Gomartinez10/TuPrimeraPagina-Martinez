@@ -1,0 +1,86 @@
+{% extends "gimnasio_vidafit/index.html" %}
+
+{% block titulo %}Iniciar Sesión - {% endblock %}
+
+{% block contenido %}
+<section class="hero-section" style="padding: 80px 0;">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-5">
+                <div class="card border-0 shadow-lg" style="border-radius: 20px; overflow: hidden;">
+                    <div class="card-header text-white text-center py-4" style="background: linear-gradient(90deg, #6C757D, #5C636A);">
+                        <h3 class="mb-0 fw-bold">Iniciar Sesión</h3>
+                        <p class="mb-0 mt-2 opacity-75">Accede a tu cuenta de VidaFit</p>
+                    </div>
+                    <div class="card-body p-5">
+
+                        {% if form.errors %}
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <strong>Error:</strong> Usuario o contraseña incorrectos.
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                            </div>
+                        {% endif %}
+
+                        <form method="post">
+                            {% csrf_token %}
+
+                            <!-- Username -->
+                            <div class="mb-3">
+                                <label for="{{ form.username.id_for_label }}" class="form-label fw-semibold">
+                                    {{ form.username.label }}
+                                </label>
+                                {{ form.username }}
+                                <small class="text-muted">Ingresa tu nombre de usuario</small>
+                            </div>
+
+                            <!-- Password -->
+                            <div class="mb-4">
+                                <label for="{{ form.password.id_for_label }}" class="form-label fw-semibold">
+                                    {{ form.password.label }}
+                                </label>
+                                {{ form.password }}
+                                <small class="text-muted">Tu contraseña</small>
+                            </div>
+
+                            <!-- Botón -->
+                            <button type="submit" class="btn btn-primary w-100 fw-bold py-2" style="background: #6C757D; border: none;">
+                                Iniciar Sesión
+                            </button>
+                        </form>
+
+                        <div class="text-center mt-4">
+                            <p class="mb-1 text-muted">
+                            </p>
+                            <p class="mb-0 text-muted">
+                                ¿No tienes cuenta? 
+                                <a href="{% url 'register' %}" class="text-decoration-none fw-semibold" style="color: #6C757D;">
+                                    Regístrate ahora
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .form-control {
+        border-radius: 10px;
+        padding: 12px 15px;
+        font-size: 1rem;
+        border: 1px solid #ced4da;
+        transition: all 0.3s ease;
+    }
+    .form-control:focus {
+        border-color: #6C757D;
+        box-shadow: 0 0 0 0.2rem rgba(108, 117, 125, 0.25);
+    }
+    .form-label {
+        color: #495057;
+    }
+</style>
+{% endblock %}

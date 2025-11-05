@@ -1,0 +1,145 @@
+{% extends "gimnasio_vidafit/index.html" %}
+
+{% block titulo %}Registro - {% endblock %}
+
+{% block contenido %}
+<section class="hero-section" style="padding: 80px 0;">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-5">
+                <div class="card border-0 shadow-lg" style="border-radius: 20px; overflow: hidden;">
+                    <div class="card-header text-white text-center py-4" style="background: linear-gradient(90deg, #6C757D, #5C636A);">
+                        <h3 class="mb-0 fw-bold">Crear Cuenta</h3>
+                        <p class="mb-0 mt-2 opacity-75">Únete a VidaFit y comienza tu transformación</p>
+                    </div>
+                    <div class="card-body p-5">
+                        <form method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+
+                            <!-- Username -->
+                            <div class="mb-3">
+                                <label for="{{ form.username.id_for_label }}" class="form-label fw-semibold">
+                                    {{ form.username.label }}
+                                </label>
+                                {{ form.username }}
+                                {% if form.username.errors %}
+                                    <div class="text-danger small mt-1">
+                                        {% for error in form.username.errors %}
+                                            {{ error }}
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+
+                            <!-- Email -->
+                            <div class="mb-3">
+                                <label for="{{ form.email.id_for_label }}" class="form-label fw-semibold">
+                                    {{ form.email.label }}
+                                </label>
+                                {{ form.email }}
+                                {% if form.email.errors %}
+                                    <div class="text-danger small mt-1">
+                                        {% for error in form.email.errors %}
+                                            {{ error }}
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+
+                            <!-- Contraseña -->
+                            <div class="mb-3">
+                                <label for="{{ form.password1.id_for_label }}" class="form-label fw-semibold">
+                                    Contraseña
+                                </label>
+                                {{ form.password1 }}
+                                {% if form.password1.errors %}
+                                    <div class="text-danger small mt-1">
+                                        {% for error in form.password1.errors %}
+                                            {{ error }}
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="{{ form.password2.id_for_label }}" class="form-label fw-semibold">
+                                    Confirmar Contraseña
+                                </label>
+                                {{ form.password2 }}
+                                {% if form.password2.errors %}
+                                    <div class="text-danger small mt-1">
+                                        {% for error in form.password2.errors %}
+                                            {{ error }}
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+
+                            <!-- Avatar -->
+                            <div class="mb-4">
+                                <label for="{{ form.avatar.id_for_label }}" class="form-label fw-semibold">
+                                    {{ form.avatar.label }} <span class="text-muted">(Opcional)</span>
+                                </label>
+                                <div class="border rounded p-3 text-center bg-light" style="cursor: pointer;" onclick="document.getElementById('{{ form.avatar.id_for_label }}').click();">
+                                    <small class="text-muted d-block">Haz clic para subir tu foto</small>
+                                    <div id="avatar-preview" class="mt-2">
+                                        <img src="" alt="Vista previa" class="rounded-circle" style="width: 80px; height: 80px; object-fit: cover; display: none;">
+                                    </div>
+                                </div>
+                                {{ form.avatar }}
+                                {% if form.avatar.errors %}
+                                    <div class="text-danger small mt-1">
+                                        {% for error in form.avatar.errors %}
+                                            {{ error }}
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+
+                            <!-- Errores no relacionados con campos -->
+                            {% if form.non_field_errors %}
+                                <div class="alert alert-danger">
+                                    {% for error in form.non_field_errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+
+                            <button type="submit" class="btn btn-primary w-100 fw-bold py-2" style="background: #6C757D; border: none;">
+                                Crear Cuenta
+                            </button>
+                        </form>
+
+                        <div class="text-center mt-4">
+                            <p class="mb-0 text-muted">
+                                ¿Ya tienes cuenta? 
+                                <a href="{% url 'login' %}" class="text-decoration-none fw-semibold" style="color: #6C757D;">
+                                    Iniciar Sesión
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Vista previa de la imagen al subir avatar
+    document.getElementById('{{ form.avatar.id_for_label }}').addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const preview = document.querySelector('#avatar-preview img');
+                preview.src = e.target.result;
+                preview.style.display = 'block';
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends "gimnasio_vidafit/index.html" %}
+
+{% block titulo %}Mi Perfil - {% endblock %}
+
+{% block contenido %}
+<section class="hero-section" style="padding: 80px 0;">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6">
+                <div class="card border-0 shadow-lg" style="border-radius: 20px; overflow: hidden;">
+                    <div class="card-header text-white text-center py-4" style="background: linear-gradient(90deg, #6C757D, #5C636A);">
+                        <h3 class="mb-0 fw-bold">Mi Perfil</h3>
+                    </div>
+                    <div class="card-body p-5 text-center">
+                        <!-- Avatar -->
+                        <div class="mb-4">
+                            {% if user.perfil.avatar %}
+                                <img src="{{ user.perfil.avatar.url }}" alt="Avatar" class="rounded-circle border border-3 border-white shadow" style="width: 140px; height: 140px; object-fit: cover;">
+                            {% else %}
+                                <div class="bg-light rounded-circle d-inline-flex align-items-center justify-content-center border border-3 border-white shadow" style="width: 140px; height: 140px;">
+                                    <i class="bi bi-person-fill text-muted" style="font-size: 3rem;"></i>
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <!-- Datos -->
+                        <h4 class="mb-3">{{ user.username }}</h4>
+                        <p class="text-muted mb-1">{{ user.email }}</p>
+                        <p class="text-muted small">Miembro desde {{ user.date_joined|date:"d/m/Y" }}</p>
+
+                        <!-- Botones -->
+                        <div class="mt-5">
+                            <a href="{% url 'profile_edit' %}" class="btn btn-primary px-5 py-2 fw-bold me-3" style="background: #6C757D; border: none; border-radius: 12px;">
+                                Editar Perfil
+                            </a>
+
+                            <!-- FORMULARIO POST PARA LOGOUT -->
+                            <form method="post" action="{% url 'logout' %}" class="d-inline">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-outline-danger px-5 py-2 fw-bold" style="border-radius: 12px;">
+                                    Cerrar Sesión
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

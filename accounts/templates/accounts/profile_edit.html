@@ -1,0 +1,104 @@
+{% extends "gimnasio_vidafit/index.html" %}
+
+{% block titulo %}Editar Perfil - {% endblock %}
+
+{% block contenido %}
+<section class="hero-section" style="padding: 80px 0;">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6">
+                <div class="card border-0 shadow-lg" style="border-radius: 20px; overflow: hidden;">
+                    <div class="card-header text-white text-center py-4" style="background: linear-gradient(90deg, #6C757D, #5C636A);">
+                        <h3 class="mb-0 fw-bold">Editar Perfil</h3>
+                    </div>
+                    <div class="card-body p-5">
+                        <form method="post" enctype="multipart/form-data" novalidate>
+                            {% csrf_token %}
+
+                            <!-- Username -->
+                            <div class="mb-4">
+                                <label class="form-label fw-semibold">Nombre de usuario</label>
+                                {{ form.username }}
+                                {% if form.username.errors %}
+                                    <div class="text-danger small mt-1">{{ form.username.errors|join:", " }}</div>
+                                {% endif %}
+                            </div>
+
+                            <!-- Email -->
+                            <div class="mb-4">
+                                <label class="form-label fw-semibold">Email</label>
+                                {{ form.email }}
+                                {% if form.email.errors %}
+                                    <div class="text-danger small mt-1">{{ form.email.errors|join:", " }}</div>
+                                {% endif %}
+                            </div>
+
+                            <!-- Avatar -->
+                            <div class="mb-4">
+                                <label class="form-label fw-semibold">Foto de perfil</label>
+                                <div class="text-center">
+                                    <div class="mb-3">
+                                        {% if user.perfil.avatar %}
+                                            <img src="{{ user.perfil.avatar.url }}" alt="Avatar actual" id="current-avatar" class="rounded-circle border" style="width: 110px; height: 110px; object-fit: cover;">
+                                        {% else %}
+                                            <div id="current-avatar" class="bg-light rounded-circle d-inline-flex align-items-center justify-content-center border" style="width: 110px; height: 110px;">
+                                                <i class="bi bi-person-fill text-muted" style="font-size: 2.5rem;"></i>
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                    <div class="border rounded-3 p-4 bg-light" style="cursor: pointer;" onclick="document.getElementById('id_avatar').click();">
+                                        <small class="text-muted d-block">Haz clic para cambiar foto</small>
+                                        <small id="file-name" class="text-muted mt-2">Sin archivo seleccionado</small>
+                                    </div>
+                                    {{ form.avatar }}
+                                    <input type="file" id="id_avatar" name="avatar" style="display: none;" accept="image/*">
+                                </div>
+                            </div>
+
+                            <div class="d-grid gap-2 mt-5">
+                                <button type="submit" class="btn btn-primary py-3 fw-bold" style="background: #6C757D; border: none; border-radius: 12px;">
+                                    Guardar Cambios
+                                </button>
+                                <a href="{% url 'profile_detail' %}" class="btn btn-outline-secondary py-3 fw-bold" style="border-radius: 12px;">
+                                    Cancelar
+                                </a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    const avatarInput = document.getElementById('id_avatar');
+    const currentAvatar = document.getElementById('current-avatar');
+    const fileName = document.getElementById('file-name');
+
+    avatarInput.addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                if (currentAvatar.tagName === 'IMG') {
+                    currentAvatar.src = e.target.result;
+                } else {
+                    // Si es un div, reemplazar por img
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.className = 'rounded-circle border';
+                    img.style.width = '110px';
+                    img.style.height = '110px';
+                    img.style.objectFit = 'cover';
+                    currentAvatar.parentNode.replaceChild(img, currentAvatar);
+                }
+            };
+            reader.readAsDataURL(file);
+            fileName.textContent = file.name;
+        }
+    });
+</script>
+{% endblock %}

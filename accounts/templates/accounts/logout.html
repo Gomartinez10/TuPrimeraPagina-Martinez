@@ -1,0 +1,31 @@
+{% extends "gimnasio_vidafit/index.html" %}
+
+{% block titulo %}Cerrar Sesión - {% endblock %}
+
+{% block contenido %}
+<section class="hero-section" style="padding: 100px 0;">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-5">
+                <div class="card border-0 shadow-lg" style="border-radius: 20px; overflow: hidden;">
+                    <div class="card-header text-white text-center py-4" style="background: linear-gradient(90deg, #6C757D, #5C636A);">
+                        <h3 class="mb-0 fw-bold">¿Cerrar sesión?</h3>
+                        <p class="mb-0 mt-2 opacity-75">Estás a punto de salir de tu cuenta</p>
+                    </div>
+                    <div class="card-body p-5 text-center">
+                        <form method="post" class="d-inline">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger px-5 py-3 fw-bold" style="border-radius: 12px;">
+                                Sí, cerrar sesión
+                            </button>
+                        </form>
+                        <a href="{% url 'index' %}" class="btn btn-outline-secondary px-5 py-3 ms-3 fw-bold" style="border-radius: 12px;">
+                            Cancelar
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
