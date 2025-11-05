@@ -7,9 +7,8 @@ from django.shortcuts import get_object_or_404
 
 
 class ArticuloListView(ListView):
-    """Muestra la lista de todos los artículos."""
     model = Articulo
-    context_object_name = 'articulo'
+    context_object_name = 'articulos'
     template_name = 'productos/lista_articulo.html' 
 
 
