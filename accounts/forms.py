@@ -4,7 +4,7 @@ from accounts.models import Perfil
 class PerfilCreationForm(UserCreationForm):
     class Meta:
         model = Perfil
-        fields = ("username", "email","avatar","fecha_de_nacimiento")
+        fields = ("username", "email","avatar")
         
 class PerfilChangeForm(UserChangeForm):
     class Meta:
